@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Scraper Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Auth Bar -->
+        <div id="auth-bar" class="auth-bar">
+            <span id="user-info">Not logged in</span>
+            <div class="auth-actions">
+                <button id="auth-btn" class="secondary-btn">Login / Register</button>
+                <button id="clear-config-btn" class="secondary-btn hidden">Clear Saved Config</button>
+                <button id="logout-btn" class="secondary-btn hidden">Log Out</button>
+                <button id="delete-account-btn" class="danger-btn hidden">Delete Account</button>
+            </div>
+        </div>
+
+        <h1>Course Scraper Dashboard</h1>
+
+        <!-- Scrape Trigger Controls -->
+        <div class="controls">
+            <button id="start-btn">Scrape Course Data</button>
+        </div>
+
+        <div id="status-card" class="status-card hidden">
+            <div id="status-icon" class="spinner"></div>
+            <span id="status-text">Initializing...</span>
+        </div>
+
+        <!-- Schedule Selection Section -->
+        <div id="config-section" class="config-section hidden">
+            <h2>Select Day Schedule for Courses</h2>
+            <div id="config-list"></div>
+            <div class="config-actions">
+                <button id="start-llm-btn" style="margin-top: 20px;">Begin Extraction</button>
+                <button id="save-config-btn" class="secondary-btn" style="margin-top: 20px;">Save Configuration</button>
+            </div>
+        </div>
+
+        <!-- Tabbed Extraction Results View -->
+        <div id="courses-list">
+            <div id="tabs-header" class="tabs-header hidden"></div>
+            <div id="tabs-content"></div>
+        </div>
+    </div>
+
+    <!-- Auth Modal -->
+    <div id="auth-modal" class="modal hidden">
+        <div class="modal-content">
+            <span id="modal-close" class="modal-close">&times;</span>
+            <div class="modal-tabs">
+                <button id="tab-login-btn" class="modal-tab active">Log In</button>
+                <button id="tab-register-btn" class="modal-tab">Create Account</button>
+            </div>
+
+            <div id="auth-error" class="error-banner hidden"></div>
+
+            <!-- Login Form -->
+            <form id="login-form" class="auth-form">
+                <label>Email Address</label>
+                <input type="email" id="login-email" required placeholder="user@vcs.net">
+
+                <label>Account Password</label>
+                <input type="password" id="login-password" required placeholder="Enter account password">
+
+                <button type="submit" class="full-btn">Log In</button>
+            </form>
+
+            <!-- Registration Form -->
+            <form id="register-form" class="auth-form hidden">
+                <div class="instructions-box">
+                    <h3>Setup Instructions Before Registering:</h3>
+                    <ol>
+                        <li>Enable <strong>2-Step Verification</strong> on your Google Account.</li>
+                        <li>Go to <strong>Google Account Settings &gt; Security &gt; App Passwords</strong>.</li>
+                        <li>Generate a new App Password for <strong>"Moodle Scraper"</strong>.</li>
+                        <li>Copy the generated <strong>16-character code</strong> and enter it below.</li>
+                    </ol>
+                </div>
+
+                <label>Email Address</label>
+                <input type="email" id="register-email" required placeholder="user@vcs.net">
+
+                <label>Account Password (for dashboard login)</label>
+                <input type="password" id="register-password" required placeholder="At least 6 characters">
+
+                <label>16-Character Google App Password (for Moodle scraping)</label>
+                <input type="password" id="register-app-password" required placeholder="xxxx xxxx xxxx xxxx" maxlength="19">
+
+                <button type="submit" class="full-btn">Create Account</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

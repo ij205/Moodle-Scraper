@@ -1,0 +1,19 @@
+# Environment variables and secrets
+.env
+.env.local
+
+# Persistent browser session profile (contains saved Google OAuth cookies/tokens)
+playwright_google_profile/
+
+# Python virtual environment
+venv/
+env/
+ENV/
+
+# Python byte code / cache
+__pycache__/
+*.py[cod]
+
+# Playwright artifacts
+test-results/
+playwright-report/
